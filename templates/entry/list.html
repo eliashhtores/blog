@@ -1,0 +1,13 @@
+{% extends "entry/base_entry.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include "includes/header.html" %}
+
+{% for entry in entries %}
+{{ entry }}
+{% endfor %}
+
+{% include "includes/footer.html" %}
+{% endblock %}

@@ -13,99 +13,76 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ home_cover.title }}</h5>
                     <p class="card-text">{{ home_cover.summary }}</p>
-                    <a href="#" class="btn btn-primary">Read full</a>
+                    <a href="#" class="btn btn-primary">Read full entry</a>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for home_entry in home_entries %}
                 <div class="col">
                     <div class="card">
-                        <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
+                        {% if home_entry.image %}
+                        <a href=""><img src="{{ home_entry.image.url }}" class="card-img-top entry-image"></a>
+                        {% endif %}
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
+                            <h5 class="card-title">{{ home_entry.title }}</h5>
+                            <p class="card-text">{{ home_entry.summary | truncatechars:30 }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
     <div class="row mt-5">
         <div class="bg-light col-12 container p-3 w-75 text-secondary card border-black mb-3">
-            <h4>Some of my philosophy:</h4>
+            <h4>{{ home.about }}</h4>
+            <p>{{ home.about_text }}</p>
             <p>
-                IT, Jazz, Metal, Blues & 70'S cult Rock
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscribeModal">
+                    Subscribe
+                </button>
             </p>
-            <p>
-                <input type="submit" value="Subscribe" class="btn btn-primary">
-            </p>
+            <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="{% url 'home_app:register_subscriber' %}">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="subscribeModalLabel">Add you email</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ form.email }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit " class="btn btn-primary">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <h2 class="mt-4">Recent Articles</h2>
     <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for recent_entry in recent_entries %}
         <div class="col">
             <div class="card">
-                <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
+                {% if recent_entry.image %}
+                <a href=""><img src="{{ recent_entry.image.url }}" class="card-img-top entry-image"></a>
+                {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
+                    <h5 class="card-title">{{ recent_entry.title }}</h5>
+                    <p class="card-text">{{ recent_entry.summary | truncatechars:30 }}</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card">
-                <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="https://source.unsplash.com/random/300x200" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional content. This content is a little bit longer.</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 
