@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from model_utils.models import TimeStampedModel
 from ckeditor_uploader.fields import RichTextUploadingField
+from .managers import EntryManager
 
 
 class Category(TimeStampedModel):
@@ -35,6 +36,8 @@ class Entry(TimeStampedModel):
     cover = models.BooleanField(default=False)
     in_home = models.BooleanField(default=False)
     slug = models.SlugField(max_length=300, unique=True)
+
+    objects = EntryManager()
 
     class Meta:
         verbose_name_plural = "Entries"
