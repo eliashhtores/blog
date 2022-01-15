@@ -1,5 +1,6 @@
+from unicodedata import category
 from django.views.generic import ListView
-from .models import Entry
+from .models import Entry, Category
 
 
 class EntryListView(ListView):
@@ -9,4 +10,11 @@ class EntryListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Entry.objects.order_by('-created')
+        title = self.request.GET.get('title', '')
+        category = self.request.GET.get('category', '')
+        return Entry.objects.search_entries(title, category)
+
+    def get_context_data(self, **kwargs):
+        context = super(EntryListView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all().order_by('name')
+        return context

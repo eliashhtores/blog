@@ -8,4 +8,6 @@ urlpatterns = [
     path('', views.HomePageView.as_view(), name='index'),
     path('register-subscriber', views.SubscriberCreateView.as_view(),
          name='register_subscriber'),
+    path('contact', views.ContactCreateView.as_view(),
+         name='contact'),
 ]

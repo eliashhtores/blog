@@ -6,74 +6,82 @@
 {% include "includes/header.html" %}
 
 <div class="container">
-    <form method="post">
-        <div class="input-group my-3">
-            <input type="text" class="form-control" placeholder="Search">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-    </form>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
-        <div class="col">
-            <div class="card">
-                <img src="..." class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content. This content is a little bit longer.</p>
+    <div class="row my-3">
+        <div class="col-md-9">
+            <form method="get">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
                 </div>
+            </form>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+                {% for entry in entries %}
+                <div class="col">
+                    <div class="card">
+                        {% if entry.image %}
+                        <img src="{{ entry.image.url }}" class="card-img-top entry-image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ entry.title }}</h5>
+                            <p class="card-text">{{ entry.summary | truncatechars:30 }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <h5 class="text-danger">No entries found</h5>
+                {% endfor %}
             </div>
         </div>
-        <div class="col">
-            <div class="card">
-                <img src="..." class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content. This content is a little bit longer.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="..." class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="..." class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content. This content is a little bit longer.</p>
-                </div>
-            </div>
+        <div class="col-md-3">
+            <h2>Categories</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="{% url 'entry_app:list' %}">All</a>
+                </li>
+                {% for category in categories %}
+                <li class="list-group-item">
+                    <a href="?category={{ category.id }}">{{ category.short_name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
-</div>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-end">
-        <li class="page-item disabled">
-            <a class="page-link">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
+    <div class="row">
+        {% if is_paginated %}
+        <nav aria-label="Pagination" class="col-md-3">
+            <ul class="pagination justify-content-start">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number}}">Previous</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                {% endif %} {% for page in paginator.page_range %} {% ifequal page page_obj.number %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                </li>
+                {% else %}
+                <li class="page-item" aria-current="page">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                </li>
+                {% endifequal %} {% endfor %} {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number}}">Next</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
 
 {% include "includes/footer.html" %}
 {% endblock %}

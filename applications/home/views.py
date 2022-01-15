@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView, CreateView
 from applications.entry.models import Entry
 from .models import Home
-from .forms import SubscriberForm
+from .forms import SubscriberForm, ContactForm
 
 
 class HomePageView(TemplateView):
@@ -22,4 +22,9 @@ class HomePageView(TemplateView):
 
 class SubscriberCreateView(CreateView):
     form_class = SubscriberForm
-    success_url = '/'
+    success_url = '.'
+
+
+class ContactCreateView(CreateView):
+    form_class = ContactForm
+    success_url = '.'

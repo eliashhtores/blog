@@ -10,3 +10,15 @@ class EntryManager(models.Manager):
 
     def get_recent_entries(self):
         return self.filter(published=True, in_home=False, cover=False).order_by('-created')[:3]
+
+    def search_entries(self, title, category):
+        if len(category) > 0:
+            return self.filter(
+                published=True,
+                category__id=category,
+            ).order_by('-created')
+
+        return self.filter(
+            published=True,
+            title__icontains=title,
+        ).order_by('-created')
