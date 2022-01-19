@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="alert alert-primary">
-                <h4 class="alert-heading">Resumen</h4>
+                <h4 class="alert-heading">Summary</h4>
                 <p>
                     {{ entry.summary }}
                 </p>
@@ -26,9 +26,11 @@
                 {% if entry.image %}
                 <img src="{{ entry.image.url }}" class="card-img-top entry-image">
                 {% endif %}
-                <div class="card-body d-flex justify-content-center">
-                    <a href="#" class="btn btn-primary">Add to favorites</a>
-                </div>
+                <form method="post" action="{% url 'favorite_app:add' entry.id %}"
+                    class="card-body d-flex justify-content-center">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit">Add to favorites</button>
+                </form>
             </div>
         </div>
     </div>

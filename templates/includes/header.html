@@ -15,9 +15,15 @@
                         <a class="nav-link" href="{% url 'entry_app:list' %}">Blog</a>
                     </li>
                 </ul>
-                <a class="btn btn-success mx-3" href="{% url 'users_app:login' %}">
+                {% if user.is_authenticated == False %}
+                <a class="btn btn-outline-secondary mx-3" href="{% url 'users_app:login' %}">
                     Login
                 </a>
+                {% else %}
+                <a class="btn btn-success mx-3" href="{% url 'users_app:panel' %}">
+                    Profile
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>

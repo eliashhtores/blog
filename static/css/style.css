@@ -38,6 +38,21 @@
     height: 250px;
 }
 
+.profile-image {
+    height: 60%;
+    width: 60%;
+}
+
 a {
     text-decoration: none !important;
+}
+
+.callout {
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #e9ecef;
+    border-left-width: 0.25rem;
+    border-radius: 0.25rem;
+    border-left-color: #5bc0de;
+    max-height: 150px;
 }

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
+from applications.favorite.models import Favorite
 
 
 class UserManager(BaseUserManager, models.Manager):
@@ -25,3 +26,6 @@ class UserManager(BaseUserManager, models.Manager):
         if self.filter(id=id, register_code=code).exists():
             return True
         return False
+
+    def get_user_favorites(self, user):
+        return Favorite.objects.filter(entry__published=True, user=user).order_by('created')

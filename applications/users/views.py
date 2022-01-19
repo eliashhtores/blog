@@ -1,4 +1,4 @@
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
@@ -18,7 +18,7 @@ from .functions import code_generator
 class UserRegisterView(FormView):
     template_name = "users/register.html"
     form_class = UserRegisterForm
-    success_url = reverse_lazy("users_app:login")
+    success_url = reverse_lazy("users_app:panel")
 
     def form_valid(self, form):
         register_code = code_generator()
@@ -42,7 +42,7 @@ class UserRegisterView(FormView):
 class LoginView(FormView):
     template_name = "users/login.html"
     form_class = LoginForm
-    success_url = reverse_lazy("home_app:index")
+    success_url = reverse_lazy("users_app:panel")
 
     def form_valid(self, form):
         user = authenticate(
@@ -51,6 +51,15 @@ class LoginView(FormView):
         )
         login(self.request, user)
         return super(LoginView, self).form_valid(form)
+
+
+class PanelView(LoginRequiredMixin, ListView):
+    template_name = "users/panel.html"
+    context_object_name = "user_favorites"
+    login_url = reverse_lazy("users_app:login")
+
+    def get_queryset(self):
+        return User.objects.get_user_favorites(self.request.user)
 
 
 class LogOutView(View):

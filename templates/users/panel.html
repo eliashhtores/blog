@@ -1,0 +1,48 @@
+{% extends "users/base_users.html" %}
+{% block title %}User panel{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+{% include "includes/header.html" %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 callout">
+            <h5>{{ user.first_name }}{{ user.last_name }}</h5>
+            <p>{{ user }} - {{ user.job_title }} - {{ user.birth_date }}</p>
+            <a href="">Edit profile</a>
+            <br>
+            <a href="{% url 'users_app:logout' %}" class="text-danger">Logout</a>
+        </div>
+        <div class="col-md-8">
+            {% for user_favorite in user_favorites %}
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {{ user_favorite }}
+                        {% if user_favorite.entry.image %}
+                        <img src="{{ user_favorite.entry.image.url }}" class="img-fluid rounded-start profile-image">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <form class="card-body" method="post" action="{% url 'favorite_app:delete' user_favorite.id %}">
+                            {% csrf_token %}
+                            <h5 class="card-title">{{ user_favorite.entry.title }}</h5>
+                            <p class="card-text">{{ user_favorite.entry.summary }}</p>
+                            <a class="btn btn-info text-light"
+                                href="{% url 'entry_app:detail' user_favorite.entry.id %}">
+                                See article
+                            </a>
+                            <button type="submit" class="btn btn-danger text-light">Delete from favorites</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
