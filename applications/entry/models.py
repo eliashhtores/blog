@@ -1,5 +1,7 @@
+from datetime import timedelta, datetime
 from django.db import models
 from django.conf import settings
+from django.template.defaultfilters import slugify
 from model_utils.models import TimeStampedModel
 from ckeditor_uploader.fields import RichTextUploadingField
 from .managers import EntryManager
@@ -35,7 +37,7 @@ class Entry(TimeStampedModel):
     image = models.ImageField(upload_to='images/', blank=True)
     cover = models.BooleanField(default=False)
     in_home = models.BooleanField(default=False)
-    slug = models.SlugField(max_length=300, unique=True)
+    slug = models.SlugField(max_length=300, editable=False)
 
     objects = EntryManager()
 
@@ -44,3 +46,10 @@ class Entry(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def save(self):
+        now = datetime.now()
+        total_time = timedelta(
+            hours=now.hour, minutes=now.minute, seconds=now.second)
+        self.slug = slugify('%s %s' % (self.title, int(total_time.seconds)))
+        super(Entry, self).save()
