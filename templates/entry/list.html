@@ -1,4 +1,6 @@
 {% extends "entry/base_entry.html" %}
+{% block title %}Entries{% endblock %}
+
 {% load static %}
 
 {% block content %}
@@ -23,7 +25,9 @@
                         <img src="{{ entry.image.url }}" class="card-img-top entry-image">
                         {% endif %}
                         <div class="card-body">
-                            <h5 class="card-title">{{ entry.title }}</h5>
+                            <h5 class="card-title">
+                                <a href="{% url 'entry_app:detail' entry.id %}">{{ entry.title }}</a>
+                            </h5>
                             <p class="card-text">{{ entry.summary | truncatechars:30 }}</p>
                         </div>
                     </div>

@@ -1,0 +1,57 @@
+{% extends "users/base_users.html" %}
+{% block title %}Register{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+{% include "includes/header.html" %}
+
+<div class="container mt-4 d-flex justify-content-center text-light">
+    <div class="col-lg-8">
+        <div class="card bg-primary text-center card-form">
+            <div class="card-body">
+                <h3>Sign Up Today</h3>
+                <p>Please fill out this form to register</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.email }}
+                    </div>
+                    <div class="row mb-3 g-3">
+                        <div class="col-6">
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.job_title }}
+                    </div>
+                    <div class="row mb-3 g-3">
+                        <div class="col-6">
+                            {{ form.gender }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.birth_date }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.repassword }}
+                    </div>
+                    <div class="mb-3 d-grid gap-2">
+                        <a class="btn btn-outline-light btn-block btn-lg mt-2" href="{% url 'users_app:register' %}">
+                            Register
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

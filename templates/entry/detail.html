@@ -1,0 +1,38 @@
+{% extends "entry/base_entry.html" %}
+{% block title %}{{ entry.title }}{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+{% include "includes/header.html" %}
+
+<div class="container">
+    <h1>{{ entry.title }}</h1>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="alert alert-primary">
+                <h4 class="alert-heading">Resumen</h4>
+                <p>
+                    {{ entry.summary }}
+                </p>
+            </div>
+            <p>
+                {{ entry.content | safe }}
+            </p>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                {% if entry.image %}
+                <img src="{{ entry.image.url }}" class="card-img-top entry-image">
+                {% endif %}
+                <div class="card-body d-flex justify-content-center">
+                    <a href="#" class="btn btn-primary">Add to favorites</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "includes/footer.html" %}
+{% endblock %}

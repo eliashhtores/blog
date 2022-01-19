@@ -1,25 +1,39 @@
-<div class="mt-3 bg-light">
+<section id="contact" class="bg-light py-5">
     <div class="container">
-        <h3>Contact form:</h3>
-        <form method="post" action="{% url 'home_app:contact' %}">
-            {% csrf_token %}
-            <div class="row p-2 g-3">
-                <div class="col-6">
-                    <label for="id_name" class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name" id="id_name">
-                </div>
-                <div class="col-6">
-                    <label for="id_email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" id="id_email">
-                </div>
-                <div class="col-12">
-                    <label for="id_message" class="form-label">Message</label>
-                    <textarea class="form-control" name="message" id="id_message"></textarea>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <h3>Get In touch</h3>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, maiores.</p>
+                <form method="post" action="{% url 'home_app:contact' %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" placeholder="Name" id="id_name" name="name">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" class="form-control" placeholder="Email" id="id_email" name="email">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                        <textarea class="form-control" placeholder="Message" rows="5" id="id_message"
+                            name="message"></textarea>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Send</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+        <p class="mt-2 lead">
+            Another contact forms:
+        </p>
+        {% if contact_email %}
+        <p class="lead">{{ contact_email }}</p>
+        {% endif %}
+
+        {% if phone %}
+        <p class="lead">{{ phone }}</p>
+        {% endif %}
     </div>
-</div>
+</section>

@@ -4,16 +4,64 @@ from .models import User
 
 
 class UserRegisterForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name',
+                  'job_title', 'birth_date')
+
+        widgets = {
+            'email': forms.EmailField(
+                attrs={
+                    'placeholder': 'Email',
+                }
+            ),
+        }
+    # email = forms.CharField(
+    #     label="Email",
+    #     required=True,
+    #     widget=,
+    # )
+
+    # first_name = forms.CharField(
+    #     label="First name",
+    #     required=True,
+    #     widget=forms.TextInput(
+    #         attrs={"class": "form-control form-control-lg", 'placeholder': 'First name'}),
+    # )
+
+    # last_name = forms.CharField(
+    #     label="Last name",
+    #     required=True,
+    #     widget=forms.TextInput(
+    #         attrs={"class": "form-control form-control-lg", 'placeholder': 'Last name'}),
+    # )
+
+    # job_title = forms.CharField(
+    #     label="Job title",
+    #     required=True,
+    #     widget=forms.TextInput(
+    #         attrs={"class": "form-control form-control-lg", 'placeholder': 'Job title'}),
+    # )
+
+    # birth_date = forms.DateField(
+    #     label="Birth date",
+    #     required=True,
+    #     widget=forms.DateInput(
+    #         attrs={"class": "form-control form-control-lg"}),
+    # )
+
     password = forms.CharField(
         label="Password",
         required=True,
-        widget=forms.PasswordInput(attrs={"class": "form-control"}),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control form-control-lg", 'placeholder': 'Password'}),
     )
 
     repassword = forms.CharField(
         label="Repeat password",
         required=True,
-        widget=forms.PasswordInput(attrs={"class": "form-control"}),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control form-control-lg", 'placeholder': 'Repeat assword'}),
     )
 
     def clean_repassword(self):
