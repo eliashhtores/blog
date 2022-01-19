@@ -18,7 +18,7 @@ from .functions import code_generator
 class UserRegisterView(FormView):
     template_name = "users/register.html"
     form_class = UserRegisterForm
-    success_url = "/"
+    success_url = reverse_lazy("users_app:login")
 
     def form_valid(self, form):
         register_code = code_generator()
@@ -42,11 +42,11 @@ class UserRegisterView(FormView):
 class LoginView(FormView):
     template_name = "users/login.html"
     form_class = LoginForm
-    success_url = reverse_lazy("home_app:panel")
+    success_url = reverse_lazy("home_app:index")
 
     def form_valid(self, form):
         user = authenticate(
-            username=form.cleaned_data["username"],
+            email=form.cleaned_data["email"],
             password=form.cleaned_data["password"],
         )
         login(self.request, user)

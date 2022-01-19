@@ -9,46 +9,36 @@ class UserRegisterForm(forms.ModelForm):
         fields = ('email', 'first_name', 'last_name',
                   'job_title', 'birth_date')
 
-        widgets = {
-            'email': forms.EmailField(
-                attrs={
-                    'placeholder': 'Email',
-                }
-            ),
-        }
-    # email = forms.CharField(
-    #     label="Email",
-    #     required=True,
-    #     widget=,
-    # )
+    email = forms.CharField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'})
+    )
 
-    # first_name = forms.CharField(
-    #     label="First name",
-    #     required=True,
-    #     widget=forms.TextInput(
-    #         attrs={"class": "form-control form-control-lg", 'placeholder': 'First name'}),
-    # )
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control form-control-lg', 'placeholder': 'First name'})
+    )
 
-    # last_name = forms.CharField(
-    #     label="Last name",
-    #     required=True,
-    #     widget=forms.TextInput(
-    #         attrs={"class": "form-control form-control-lg", 'placeholder': 'Last name'}),
-    # )
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control form-control-lg", 'placeholder': 'Last name'})
+    )
 
-    # job_title = forms.CharField(
-    #     label="Job title",
-    #     required=True,
-    #     widget=forms.TextInput(
-    #         attrs={"class": "form-control form-control-lg", 'placeholder': 'Job title'}),
-    # )
+    job_title = forms.CharField(
+        widget=forms.TextInput(
+            attrs={"class": "form-control form-control-lg", 'placeholder': 'Job title'})
+    )
 
-    # birth_date = forms.DateField(
-    #     label="Birth date",
-    #     required=True,
-    #     widget=forms.DateInput(
-    #         attrs={"class": "form-control form-control-lg"}),
-    # )
+    gender = forms.ChoiceField(
+        choices=User.GENDER_CHOICES,
+        widget=forms.Select(
+            attrs={"class": "form-control form-control-lg"})
+    )
+
+    birth_date = forms.DateField(
+        widget=forms.DateInput(
+            format=('%Y/%m/%d'), attrs={'class': 'form-control form-control-lg', 'type': 'date'}))
 
     password = forms.CharField(
         label="Password",
@@ -61,7 +51,7 @@ class UserRegisterForm(forms.ModelForm):
         label="Repeat password",
         required=True,
         widget=forms.PasswordInput(
-            attrs={"class": "form-control form-control-lg", 'placeholder': 'Repeat assword'}),
+            attrs={"class": "form-control form-control-lg", 'placeholder': 'Repeat password'}),
     )
 
     def clean_repassword(self):
@@ -87,12 +77,19 @@ class LoginForm(forms.Form):
     email = forms.CharField(
         label="email",
         required=True,
-        widget=forms.TextInput(attrs={"class": "form-control"}),
+        widget=forms.TextInput(
+            attrs={"class": "form-control form-control-lg",
+                   'placeholder': 'Email'}
+        )
     )
+
     password = forms.CharField(
         label="Password",
         required=True,
-        widget=forms.PasswordInput(attrs={"class": "form-control"}),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control form-control-lg",
+                   'placeholder': 'Password'}
+        )
     )
 
     def clean(self):

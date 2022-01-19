@@ -12,6 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     job_title = models.CharField(max_length=30, blank=True)
     gender = models.CharField(
         max_length=1, choices=(GENDER_CHOICES), blank=True)
+    register_code = models.CharField(max_length=6, blank=True)
     birth_date = models.DateTimeField(blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)

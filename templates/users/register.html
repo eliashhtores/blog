@@ -31,9 +31,11 @@
                     </div>
                     <div class="row mb-3 g-3">
                         <div class="col-6">
+                            <label for="gender">Gender</label>
                             {{ form.gender }}
                         </div>
                         <div class="col-6">
+                            <label for="birth_date">Birth date</label>
                             {{ form.birth_date }}
                         </div>
                     </div>
@@ -44,9 +46,7 @@
                         {{ form.repassword }}
                     </div>
                     <div class="mb-3 d-grid gap-2">
-                        <a class="btn btn-outline-light btn-block btn-lg mt-2" href="{% url 'users_app:register' %}">
-                            Register
-                        </a>
+                        <button type="submit" class="btn btn-outline-light btn-block btn-lg mt-2">Register</button>
                     </div>
                 </form>
             </div>
