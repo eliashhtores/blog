@@ -35,7 +35,7 @@
                 {% if entry.image %}
                 <img src="{{ entry.image.url }}" class="card-img-top entry-image">
                 {% endif %}
-                <form method="post" action="{% url 'favorite_app:add' entry.slug %}"
+                <form method="post" action="{% url 'favorite_app:add' entry.id %}"
                     class="card-body d-flex justify-content-center">
                     {% csrf_token %}
                     <button class="btn btn-primary" type="submit">Add to favorites</button>
