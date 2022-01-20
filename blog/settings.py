@@ -9,8 +9,6 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-from django.core.exceptions import ImproperlyConfigured
-import json
 from unipath import Path
 from dotenv import load_dotenv
 import os
@@ -76,7 +74,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # "applications.context_processors.home_contact",
+                "applications.context_processors.home_contact",
             ],
         },
     },
