@@ -1,5 +1,8 @@
 {% extends "home/base_home.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}{{ home.title }}{% endblock %}
+{% block description %}
+<meta name="description" content="{{ home.description }}">
+{% endblock %}
 {% load static %}
 
 {% block content %}
@@ -13,10 +16,10 @@
                 <img src="{{ home_cover.image.url }}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{% url 'entry_app:detail' home_cover.id %}">{{home_cover.title}}</a>
+                        <a href="{% url 'entry_app:detail' home_cover.slug %}">{{home_cover.title}}</a>
                     </h5>
                     <p class="card-text">{{ home_cover.summary }}</p>
-                    <a href="{% url 'entry_app:detail' home_cover.id %}" class="btn btn-primary">Read full entry</a>
+                    <a href="{% url 'entry_app:detail' home_cover.slug %}" class="btn btn-primary">Read full entry</a>
                 </div>
             </div>
         </div>
@@ -30,7 +33,7 @@
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{% url 'entry_app:detail' home_entry.id %}">{{home_entry.title }}</a>
+                                <a href="{% url 'entry_app:detail' home_entry.slug %}">{{home_entry.title }}</a>
                             </h5>
                             <p class="card-text">{{ home_entry.summary | truncatechars:30 }}</p>
                         </div>
@@ -83,7 +86,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{% url 'entry_app:detail' recent_entry.id %}">{{recent_entry.title }}</a>
+                        <a href="{% url 'entry_app:detail' recent_entry.slug %}">{{recent_entry.title }}</a>
                     </h5>
                     <p class="card-text">{{ recent_entry.summary | truncatechars:30 }}</p>
                 </div>

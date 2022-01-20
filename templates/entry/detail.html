@@ -1,6 +1,15 @@
 {% extends "entry/base_entry.html" %}
 {% block title %}{{ entry.title }}{% endblock %}
-
+{% block description %}
+<meta name="description" content="{{ entry.summary }}">
+{% endblock %}
+{% block tags %}
+<meta name="keywords" content="
+{% for tag in entry.tags.all  %}
+    {{ tag.name }},
+{% endfor %}
+">
+{% endblock %}
 {% load static %}
 
 {% block content %}
@@ -26,7 +35,7 @@
                 {% if entry.image %}
                 <img src="{{ entry.image.url }}" class="card-img-top entry-image">
                 {% endif %}
-                <form method="post" action="{% url 'favorite_app:add' entry.id %}"
+                <form method="post" action="{% url 'favorite_app:add' entry.slug %}"
                     class="card-body d-flex justify-content-center">
                     {% csrf_token %}
                     <button class="btn btn-primary" type="submit">Add to favorites</button>

@@ -1,6 +1,7 @@
 from datetime import timedelta, datetime
 from django.db import models
 from django.conf import settings
+from django.urls import reverse_lazy
 from django.template.defaultfilters import slugify
 from model_utils.models import TimeStampedModel
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -53,3 +54,6 @@ class Entry(TimeStampedModel):
             hours=now.hour, minutes=now.minute, seconds=now.second)
         self.slug = slugify('%s %s' % (self.title, int(total_time.seconds)))
         super(Entry, self).save()
+
+    def get_absolute_url(self):
+        return reverse_lazy('entry_app:detail', kwargs={'slug': self.slug})

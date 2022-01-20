@@ -32,7 +32,7 @@
                             <h5 class="card-title">{{ user_favorite.entry.title }}</h5>
                             <p class="card-text">{{ user_favorite.entry.summary }}</p>
                             <a class="btn btn-info text-light"
-                                href="{% url 'entry_app:detail' user_favorite.entry.id %}">
+                                href="{% url 'entry_app:detail' user_favorite.entry.slug %}">
                                 See article
                             </a>
                             <button type="submit" class="btn btn-danger text-light">Delete from favorites</button>

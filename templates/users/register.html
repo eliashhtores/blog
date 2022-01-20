@@ -41,9 +41,15 @@
                     </div>
                     <div class="mb-3">
                         {{ form.password }}
+                        {% for error in form.password.errors %}
+                        <div class="alert alert-danger mt-2">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="mb-3">
                         {{ form.repassword }}
+                        {% for error in form.repassword.errors %}
+                        <div class="alert alert-danger mt-2">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="mb-3 d-grid gap-2">
                         <button type="submit" class="btn btn-outline-light btn-block btn-lg mt-2">Register</button>
